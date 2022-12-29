@@ -14,4 +14,4 @@ TO-DO: Functionality for creating/deleting an account and for adding comments to
 - Database with MongoDB
 - React Bootstrap
 
-Originally made for [Full Stack open 2022](https://fullstackopen.com/en/)
+Originally made for [Full Stack open 2022](https://fullstackopen.com/en/).
