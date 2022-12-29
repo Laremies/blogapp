@@ -4,7 +4,7 @@ A bloglist application, where logged in users can:
 
 The application is currently not hosted anywhere.
 
-TO-DO: functionaly for creating/deleting an account
+TO-DO: Functionality for creating/deleting an account and for adding comments to blogs.
 
 ## Stack
 - React
@@ -13,3 +13,5 @@ TO-DO: functionaly for creating/deleting an account
 - Axios
 - Database with MongoDB
 - React Bootstrap
+
+Originally made for [Full Stack open 2022](https://fullstackopen.com/en/)
