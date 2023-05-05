@@ -1,5 +1,6 @@
 const router = require('express').Router()
 
+const { request, response } = require('express')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
@@ -59,6 +60,17 @@ router.put('/:id', async (request, response) => {
     ).populate('user', { username: 1, name: 1 })
       
   response.json(updatedBlog)
+})
+
+router.post('/:id/comments', async (request, response) => {
+  const { comment } = request.body
+
+  const blog = await Blog.findById(request.params.id)
+
+  blog.comments = blog.comments.concat(comment)
+  await blog.save()
+
+  response.json(comment)
 })
 
 module.exports = router
