@@ -92,14 +92,13 @@ const App = () => {
   }
 
 
-  const likeBlog = async (id) => {
+  const likeBlog = (id) => {
     const toLike = blogs.find(b => b.id === id)
     const liked = {
       ...toLike,
       likes: (toLike.likes||0) + 1,
       user: toLike.user.id
     }
-
 
     blogService.update(liked.id, liked).then(updatedBlog => {
       notify(`You liked '${updatedBlog.title}' by ${updatedBlog.author}.`)
@@ -110,6 +109,7 @@ const App = () => {
     })
   }
 
+  
   const navigate = useNavigate()
   const removeBlog = (id) => {
     const toRemove = blogs.find(b => b.id === id)
