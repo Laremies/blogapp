@@ -1,74 +1,30 @@
-import { useState } from 'react'
-import PropTypes from 'prop-types'
+import { useParams } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 
-const BlogDetails = ({ blog, visible, likeBlog, removeBlog, own }) => {
-  if (!visible) return null
 
-  const addedBy = blog.user && blog.user.name ? blog.user.name : 'anonymous'
+const Blog = ({ blogs, like, remove, user }) => {
+  const id = useParams().id
+  const blog = blogs.find(b => b.id === id)
+  if (!blog) return null
+  const own = user.username === blog.user.username
+  let url = blog.url
+  if (url.substring(0, 4) !== 'http') url = 'https://' + blog.url
 
-  return (
-    <div>
-      <div>
-        <a href={blog.url}>{blog.url}</a>
-      </div>
-      <div>
-        {blog.likes} likes <Button variant='outline-primary' size='sm' onClick={() => likeBlog(blog.id)}>like</Button>
-      </div>
-      {addedBy}
-      <>
-        <br />
-        {own&&<Button variant='outline-danger' size='sm' onClick={() => removeBlog(blog.id)}>
-          remove
-        </Button>}
-      </>
-    </div>
-  )
-}
-
-const Blog = ({ blog, likeBlog, removeBlog, user }) => {
-  const [visible, setVisible] = useState(false)
-
-  const style = {
-    padding: 10,
-    margin: 5,
-    borderStyle: 'solid',
-    borderWidth: 1,
-  }
 
   return (
-    <div style={style} className='blog'>
-      {blog.title} by {blog.author}
-      <Button variant='outline-secondary' size='sm' onClick={() => setVisible(!visible)} style={{ float: 'right'}}>
-        {visible ? 'hide' : 'view'}
-      </Button>
-      <BlogDetails
-        blog={blog}
-        visible={visible}
-        likeBlog={likeBlog}
-        removeBlog={removeBlog}
-        own={blog.user && user.username===blog.user.username}
-      />
+    <div className='blog'>
+      <div style={{marginBottom: 10}}>
+        <h1>{blog.title}</h1>
+        <h3>by {blog.author}</h3>
+      </div>
+      <a href={`${url}`} target='_blank' rel='noreferrer'>{url}</a> <br />
+      <div style={{marginBottom: 10, marginTop: 10}}>
+        <b>{blog.likes} likes</b> <Button variant='outline-primary' size='sm' onClick={() => like(blog.id)}>like</Button>
+      </div>
+      <p>Added by {blog.user.name}</p>
+      {own&&<Button variant='outline-danger' size='sm' onClick={() => remove(blog.id)}>remove</Button>}
     </div>
   )
-}
-
-Blog.propTypes = {
-  blog: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    likes: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      username: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    })
-  }).isRequired,
-  user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-  }),
-  likeBlog: PropTypes.func.isRequired,
-  removeBlog: PropTypes.func.isRequired,
 }
 
 export default Blog
