@@ -1,6 +1,7 @@
 A bloglist application, where logged in users can:
 - link and remove own blogs
 - view and like their own and others' blogs
+- comment on blogs
 
 The application is currently not hosted anywhere.
 
