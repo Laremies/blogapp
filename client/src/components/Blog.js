@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
+import { Button, ListGroup } from 'react-bootstrap'
 
 
 const Blog = ({ blogs, like, remove, user }) => {
@@ -23,6 +23,12 @@ const Blog = ({ blogs, like, remove, user }) => {
       </div>
       <p>Added by {blog.user.name}</p>
       {own&&<Button variant='outline-danger' size='sm' onClick={() => remove(blog.id)}>remove</Button>}
+      <div style={{marginTop: 10}}>
+        <h3>Comments:</h3>
+        <ListGroup variant='flush'>
+          {blog.comments.map((comment, i) => <ListGroup.Item key={i}>{comment}</ListGroup.Item>)}
+        </ListGroup>
+      </div>
     </div>
   )
 }
