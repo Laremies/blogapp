@@ -2,14 +2,18 @@ import { useParams } from 'react-router-dom'
 import { Button, ListGroup, Form } from 'react-bootstrap'
 import { useState } from 'react'
 
-
-
 const Blog = ({ blogs, like, remove, add, user }) => {
-  const [comment, setComment] = useState('')
   const id = useParams().id
   const blog = blogs.find(b => b.id === id)
+  const [comment, setComment] = useState('')
+ 
 
-  if (!blog) return null
+ if (!blog) return null
+  
+  const handleSubmit = async (event) => {
+    add(event, id, comment)
+    setComment('')
+  }
 
   const own = user.username === blog.user.username
   let url = blog.url
@@ -46,7 +50,7 @@ const Blog = ({ blogs, like, remove, add, user }) => {
           {blog.comments.map((comment, i) => <ListGroup.Item key={i}>{comment}</ListGroup.Item>)}
         </ListGroup>
         
-        <Form onSubmit={() => {}} style={{marginTop: 10}}>
+        <Form onSubmit={handleSubmit} style={{marginTop: 10}}>
           <Form.Group>
             <Form.Control as='textarea' rows={3} placeholder='Write a comment...'
               value={comment} onChange={({ target }) => setComment(target.value)}>

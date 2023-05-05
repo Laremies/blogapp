@@ -109,7 +109,7 @@ const App = () => {
     })
   }
 
-  
+
   const navigate = useNavigate()
   const removeBlog = (id) => {
     const toRemove = blogs.find(b => b.id === id)
@@ -128,6 +128,15 @@ const App = () => {
     notify('Blog deleted.')
   }
 
+  const addComment = async (event, id, comment) => {
+    event.preventDefault()
+    await blogService.comment(id, comment)
+    const toComment = blogs.find(b => b.id === id)
+    const updatedBlog = { ...toComment, comments: toComment.comments.concat(comment)}
+    const updatedBlogs = blogs.map(b => b.id === id ? updatedBlog : b)
+    setBlogs(updatedBlogs)
+
+  }
 
   if (user === null) {
     return <div className='container'>
@@ -154,7 +163,7 @@ const App = () => {
         <Route path='/' element={<BlogList blogs={blogs} blogFromRef={blogFormRef} create={createBlog} />} />
         <Route path='/users' element={<UserList users={users} />} />
         <Route path='/users/:id' element={<User user={chosenUser} />} />
-        <Route path='/blogs/:id' element={<Blog user={user} blogs={blogs} like={likeBlog} remove={removeBlog}/>} />
+        <Route path='/blogs/:id' element={<Blog user={user} blogs={blogs} like={likeBlog} remove={removeBlog} add={addComment}/>} />
       </Routes>
     </div>
   )
