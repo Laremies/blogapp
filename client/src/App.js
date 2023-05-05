@@ -128,6 +128,7 @@ const App = () => {
     notify('Blog deleted.')
   }
 
+  
   const addComment = async (event, id, comment) => {
     event.preventDefault()
     await blogService.comment(id, comment)
@@ -135,8 +136,8 @@ const App = () => {
     const updatedBlog = { ...toComment, comments: toComment.comments.concat(comment)}
     const updatedBlogs = blogs.map(b => b.id === id ? updatedBlog : b)
     setBlogs(updatedBlogs)
-
   }
+
 
   if (user === null) {
     return <div className='container'>

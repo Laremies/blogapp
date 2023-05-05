@@ -4,7 +4,7 @@ A bloglist application, where logged in users can:
 
 The application is currently not hosted anywhere.
 
-TO-DO: Functionality for creating/deleting an account and for adding comments to blogs.
+TO-DO: Functionality for creating/deleting an account.
 
 ## Stack
 - React

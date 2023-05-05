@@ -2,12 +2,12 @@ import { useParams } from 'react-router-dom'
 import { Button, ListGroup, Form } from 'react-bootstrap'
 import { useState } from 'react'
 
+
 const Blog = ({ blogs, like, remove, add, user }) => {
   const id = useParams().id
   const blog = blogs.find(b => b.id === id)
   const [comment, setComment] = useState('')
  
-
  if (!blog) return null
   
   const handleSubmit = async (event) => {
